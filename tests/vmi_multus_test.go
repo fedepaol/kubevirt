@@ -616,8 +616,11 @@ var _ = Describe("SRIOV", func() {
 			    mkdir -p /usr/local/bin
 			    curl %s > /usr/local/bin/qemu-ga
 			    chmod +x /usr/local/bin/qemu-ga
-			    systemd-run --unit=guestagent /usr/local/bin/qemu-ga`, tests.GuestAgentHttpUrl)
-			vmi = tests.NewRandomVMIWithEphemeralDiskAndUserdata(tests.ContainerDiskFor(tests.ContainerDiskFedora), userData)
+				systemd-run --unit=guestagent /usr/local/bin/qemu-ga`, tests.GuestAgentHttpUrl)
+
+			ports := []v1.Port{}
+			vmi = tests.NewRandomVMIWithMasqueradeInterfaceEphemeralDiskAndUserdata(tests.ContainerDiskFor(tests.ContainerDiskFedora), userData, ports)
+
 			vmi.Spec.Domain.Devices.Rng = &v1.Rng{} // newer fedora kernels may require hardware RNG to boot
 
 			tests.AddExplicitPodNetworkInterface(vmi)
