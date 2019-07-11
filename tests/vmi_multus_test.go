@@ -616,7 +616,7 @@ var _ = Describe("SRIOV", func() {
 			    mkdir -p /usr/local/bin
 			    curl %s > /usr/local/bin/qemu-ga
 			    chmod +x /usr/local/bin/qemu-ga
-				systemd-run --unit=guestagent /usr/local/bin/qemu-ga`, tests.GuestAgentHttpUrl)
+			    systemd-run --unit=guestagent /usr/local/bin/qemu-ga`, tests.GuestAgentHttpUrl)
 
 			ports := []v1.Port{}
 			vmi = tests.NewRandomVMIWithMasqueradeInterfaceEphemeralDiskAndUserdata(tests.ContainerDiskFor(tests.ContainerDiskFedora), userData, ports)
